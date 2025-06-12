@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema Hub - Démonstration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            width: 200px;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 20px 0;
+        }
+
+        .city-item {
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .city-item:hover {
+            background-color: #f8f9fa;
+            border-left-color: #ff6b35;
+        }
+
+        .city-item.active {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            border-left-color: #e55a2b;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .content-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .content-title {
+            font-size: 1.8rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .cinema-filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover {
+            border-color: #ff6b35;
+            color: #ff6b35;
+        }
+
+        .filter-btn.active {
+            background: #ff6b35;
+            border-color: #ff6b35;
+            color: white;
+        }
+
+        .cinemas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .cinema-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .cinema-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .cinema-header {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cinema-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .cinema-content {
+            padding: 20px;
+        }
+
+        .movie-section {
+            margin-bottom: 25px;
+        }
+
+        .movie-header {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .movie-poster {
+            width: 80px;
+            height: 120px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            font-size: 0.8rem;
+            padding: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .movie-info {
+            flex: 1;
+        }
+
+        .movie-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .movie-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .seances-label {
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .seances-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .seance-btn {
+            padding: 8px 15px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .seance-btn:hover {
+            background: #ff6b35;
+            color: white;
+            border-color: #ff6b35;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .projection-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .projection-info p {
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-seat {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 2px solid;
+        }
+
+        .legend-seat.available {
+            background: #28a745;
+            border-color: #28a745;
+        }
+
+        .legend-seat.occupied {
+            background: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .legend-seat.selected {
+            background: #ff6b35;
+            border-color: #ff6b35;
+        }
+
+        .seats-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 35px);
+            gap: 8px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .seat {
+            width: 35px;
+            height: 35px;
+            border-radius: 6px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .seat.available {
+            background: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+
+        .seat.occupied {
+            background: #dc3545;
+            border-color: #dc3545;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .seat.selected {
+            background: #ff6b35;
+            border-color: #ff6b35;
+            color: white;
+        }
+
+        .booking-form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .book-btn {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+
+        .book-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .book-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .selected-info {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                display: flex;
+                overflow-x: auto;
+                padding: 10px;
+            }
+            
+            .city-item {
+                white-space: nowrap;
+                min-width: 120px;
+            }
+            
+            .cinemas-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .movie-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .seats-grid {
+                grid-template-columns: repeat(8, 30px);
+            }
+            
+            .seat {
+                width: 30px;
+                height: 30px;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Cinema Hub</h1>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar avec les villes -->
+        <div class="sidebar">
+            <div class="city-item active" onclick="selectCity('casablanca')">Casablanca</div>
+            <div class="city-item" onclick="selectCity('rabat')">Rabat</div>
+            <div class="city-item" onclick="selectCity('marrakech')">Marrakech</div>
+            <div class="city-item" onclick="selectCity('tanger')">Tanger</div>
+        </div>
+
+        <!-- Contenu principal -->
+        <div class="main-content">
+            <div class="content-header">
+                <h2 class="content-title">Liste des Cinémas</h2>
+                <div class="cinema-filters">
+                    <button class="filter-btn active" onclick="selectCinema('ugc')">UGC</button>
+                    <button class="filter-btn" onclick="selectCinema('gaumont')">Gaumont</button>
+                    <button class="filter-btn" onclick="selectCinema('mega-rama')">Mega Rama</button>
+                </div>
+            </div>
+
+            <!-- Grid des films par salle -->
+            <div class="cinemas-grid">
+                <div class="cinema-card">
+                    <div class="cinema-header">
+                        <h3 class="cinema-title">Salle 1 - Forrest Gump</h3>
+                    </div>
+                    <div class="cinema-content">
+                        <div class="movie-section">
+                            <div class="movie-header">
+                                <div class="movie-poster">
+                                    FORREST<br>GUMP
+                                </div>
+                                <div class="movie-info">
+                                    <h4 class="movie-title">Forrest Gump</h4>
+                                    <p class="movie-description">L'histoire d'un homme simple au grand cœur qui traverse l'histoire américaine</p>
+                                    <div class="seances-label">Séances</div>
+                                    <div class="seances-grid">
+                                        <button class="seance-btn" onclick="openReservation('Forrest Gump', '14:00', 10)">14:00 (Prix 10€)</button>
+                                        <button class="seance-btn" onclick="openReservation('Forrest Gump', '17:00', 10)">17:00 (Prix 10€)</button>
+                                        <button class="seance-btn" onclick="openReservation('Forrest Gump', '20:00', 10)">20:00 (Prix 10€)</button>
+                                        <button class="seance-btn" onclick="openReservation('Forrest Gump', '23:00', 10)">23:00 (Prix 10€)</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cinema-card">
+                    <div class="cinema-header">
+                        <h3 class="cinema-title">Salle 2 - 12 hommes en colère</h3>
+                    </div>
+                    <div class="cinema-content">
+                        <div class="movie-section">
+                            <div class="movie-header">
+                                <div class="movie-poster">
+                                    12<br>HOMMES<br>EN<br>COLÈRE
+                                </div>
+                                <div class="movie-info">
+                                    <h4 class="movie-title">12 hommes en colère</h4>
+                                    <p class="movie-description">Un jury délibère sur le sort d'un jeune homme accusé de meurtre</p>
+                                    <div class="seances-label">Séances</div>
+                                    <div class="seances-grid">
+                                        <button class="seance-btn" onclick="openReservation('12 hommes en colère', '14:00', 10)">14:00 (Prix 10€)</button>
+                                        <button class="seance-btn" onclick="openReservation('12 hommes en colère', '17:00', 10)">17:00 (Prix 10€)</button>
+                                        <button class="seance-btn" onclick="openReservation('12 hommes en colère', '20:00', 10)">20:00 (Prix 10€)</button>
+                                        <button class="seance-btn" onclick="openReservation('12 hommes en colère', '23:00', 10)">23:00 (Prix 10€)</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cinema-card">
+                    <div class="cinema-header">
+                        <h3 class="cinema-title">Salle 3 - Le Parrain</h3>
+                    </div>
+                    <div class="cinema-content">
+                        <div class="movie-section">
+                            <div class="movie-header">
+                                <div class="movie-poster">
+                                    LE<br>PARRAIN
+                                </div>
+                                <div class="movie-info">
+                                    <h4 class="movie-title">Le Parrain</h4>
+                                    <p class="movie-description">L'épopée d'une famille de la mafia américaine</p>
+                                    <div class="seances-label">Séances</div>
+                                    <div class="seances-grid">
+                                        <button class="seance-btn" onclick="openReservation('Le Parrain', '14:00', 12)">14:00 (Prix 12€)</button>
+                                        <button class="seance-btn" onclick="openReservation('Le Parrain', '17:00', 12)">17:00 (Prix 12€)</button>
+                                        <button class="seance-btn" onclick="openReservation('Le Parrain', '20:00', 12)">20:00 (Prix 12€)</button>
+                                        <button class="seance-btn" onclick="openReservation('Le Parrain', '23:00', 12)">23:00 (Prix 12€)</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cinema-card">
+                    <div class="cinema-header">
+                        <h3 class="cinema-title">Salle 4 - Le Seigneur des anneaux</h3>
+                    </div>
+                    <div class="cinema-content">
+                        <div class="movie-section">
+                            <div class="movie-header">
+                                <div class="movie-poster">
+                                    LOTR
+                                </div>
+                                <div class="movie-info">
+                                    <h4 class="movie-title">Le Seigneur des anneaux</h4>
+                                    <p class="movie-description">L'aventure épique de Frodon et de la Communauté de l'Anneau</p>
+                                    <div class="seances-label">Séances</div>
+                                    <div class="seances-grid">
+                                        <button class="seance-btn" onclick="openReservation('Le Seigneur des anneaux', '14:00', 15)">14:00 (Prix 15€)</button>
+                                        <button class="seance-btn" onclick="openReservation('Le Seigneur des anneaux', '17:00', 15)">17:00 (Prix 15€)</button>
+                                        <button class="seance-btn" onclick="openReservation('Le Seigneur des anneaux', '20:00', 15)">20:00 (Prix 15€)</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de réservation -->
+    <div class="modal" id="reservationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Réservation - Film</h3>
+                <button class="close-btn" onclick="closeReservation()">&times;</button>
+            </div>
+
+            <div class="projection-info">
+                <p><strong>Séance:</strong> <span id="seanceTime"></span></p>
+                <p><strong>Prix par place:</strong> <span id="seatPrice"></span>€</p>
+            </div>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-seat available"></div>
+                    <span>Disponible</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-seat occupied"></div>
+                    <span>Occupé</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-seat selected"></div>
+                    <span>Sélectionné</span>
+                </div>
+            </div>
+
+            <div class="seats-grid" id="seatsGrid">
+                <!-- Places générées dynamiquement -->
+            </div>
+
+            <div class="booking-form" id="bookingForm" style="display: none;">
+                <h4>Informations de réservation</h4>
+                
+                <div class="selected-info">
+                    <p><strong>Places sélectionnées:</strong> <span id="selectedSeats"></span></p>
+                    <p><strong>Prix total:</strong> <span id="totalPrice"></span>€</p>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Nom du client *</label>
+                    <input type="text" class="form-input" id="clientName" placeholder="Entrez votre nom">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Code de paiement *</label>
+                    <input type="text" class="form-input" id="paymentCode" placeholder="Code de paiement">
+                </div>
+
+                <button class="book-btn" onclick="confirmBooking()">
+                    Confirmer la réservation
+                </button>
+                
+                <div class="success-message" id="successMessage" style="display: none;">
+                    Réservation confirmée avec succès !
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedSeats = [];
+        let currentPrice = 0;
+        let seatData = [];
+
+        function selectCity(city) {
+            // Retirer la classe active de tous les éléments
+            document.querySelectorAll('.city-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Ajouter la classe active à l'élément cliqué
+            event.target.classList.add('active');
+            
+            // Ici vous pourriez charger les cinémas de la ville sélectionnée
+            console.log('Ville sélectionnée:', city);
+        }
+
+        function selectCinema(cinema) {
+            // Retirer la classe active de tous les boutons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Ajouter la classe active au bouton cliqué
+            event.target.classList.add('active');
+            
+            // Ici vous pourriez filtrer les salles par cinéma
+            console.log('Cinéma sélectionné:', cinema);
+        }
+
+        function openReservation(movieTitle, time, price) {
+            document.getElementById('modalTitle').textContent = `Réservation - ${movieTitle}`;
+            document.getElementById('seanceTime').textContent = time;
+            document.getElementById('seatPrice').textContent = price;
+            
+            currentPrice = price;
+            selectedSeats = [];
+            
+            generateSeats();
+            document.getElementById('reservationModal').style.display = 'block';
+        }
+
+        function generateSeats() {
+            const seatsGrid = document.getElementById('seatsGrid');
+            seatsGrid.innerHTML = '';
+            seatData = [];
+            
+            // Générer 50 places (5 rangées de 10)
+            for (let i = 1; i <= 50; i++) {
+                const seat = document.createElement('div');
+                seat.className = 'seat';
+                seat.textContent = i;
+                
+                // Simuler quelques places occupées
+                const isOccupied = Math.random() < 0.3; // 30% de chances d'être occupé
+                
+                if (isOccupied) {
+                    seat.classList.add('occupied');
+                } else {
+                    seat.classList.add('available');
+                    seat.onclick = () => toggleSeat(i, seat);
+                }
+                
+                seatData.push({
+                    number: i,
+                    occupied: isOccupied,
+                    selected: false
+                });
+                
+                seatsGrid.appendChild(seat);
+            }
+        }
+
+        function toggleSeat(seatNumber, seatElement) {
+            const seatIndex = seatData.findIndex(s => s.number === seatNumber);
+            const seat = seatData[seatIndex];
+            
+            if (seat.occupied) return;
+            
+            if (seat.selected) {
+                // Désélectionner
+                seat.selected = false;
+                seatElement.classList.remove('selected');
+                seatElement.classList.add('available');
+                selectedSeats = selectedSeats.filter(s => s !== seatNumber);
+            } else {
+                // Sélectionner
+                seat.selected = true;
+                seatElement.classList.remove('available');
+                seatElement.classList.add('selected');
+                selectedSeats.push(seatNumber);
+            }
+            
+            updateBookingForm();
+        }
+
+        function updateBookingForm() {
+            const bookingForm = document.getElementById('bookingForm');
+            
+            if (selectedSeats.length > 0) {
+                bookingForm.style.display = 'block';
+                document.getElementById('selectedSeats').textContent = selectedSeats.join(', ');
+                document.getElementById('totalPrice').textContent = selectedSeats.length * currentPrice;
+            } else {
+                bookingForm.style.display = 'none';
+            }
+        }
+
+        function confirmBooking() {
+            const clientName = document.getElementById('clientName').value;
+            const paymentCode = document.getElementById('paymentCode').value;
+            
+            if (!clientName || !paymentCode) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+            }
+            
+            // Simuler la réservation
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            
+            // Marquer les places comme occupées
+            selectedSeats.forEach(seatNumber => {
+                const seatIndex = seatData.findIndex(s => s.number === seatNumber);
+                if (seatIndex !== -1) {
+                    seatData[seatIndex].occupied = true;
+                    const seatElement = document.querySelector(`.seat:nth-child(${seatNumber})`);
+                    if (seatElement) {
+                        seatElement.classList.remove('selected');
+                        seatElement.classList.add('occupied');
+                        seatElement.onclick = null;
+                    }
+                }
+            });
+            
+            selectedSeats = [];
+            updateBookingForm();
+            
+            // Fermer le modal après 2 secondes
+            setTimeout(() => {
+                closeReservation();
+            }, 2000);
+        }
+
+        function closeReservation() {
+            document.getElementById('reservationModal').style.display = 'none';
+            document.getElementById('clientName').value = '';
+            document.getElementById('paymentCode').value = '';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        // Fermer le modal en cliquant à l'extérieur
+        window.onclick = function(event) {
+            const modal = document.getElementById('reservationModal');
+            if (event.target === modal) {
+                closeReservation();
+            }
+        }
+    </script>
+</body>
+</html>
