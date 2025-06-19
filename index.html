@@ -16,14 +16,73 @@
             background-color: #f5f5f5;
         }
 
-        .header {
+        /* Header moderne */
+        .top-header {
             background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
-            padding: 20px 0;
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: bold;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            background: rgba(255,255,255,0.2);
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: white;
+            color: #ff6b35;
+        }
+
+        .nav-btn.logout {
+            background: rgba(220,53,69,0.8);
+            border-color: rgba(220,53,69,0.3);
+        }
+
+        .nav-btn.logout:hover {
+            background: #dc3545;
         }
 
         .container {
@@ -32,10 +91,21 @@
         }
 
         .sidebar {
-            width: 200px;
+            width: 220px;
             background: white;
             box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            padding: 20px 0;
+            padding: 0;
+        }
+
+        .sidebar-header {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .city-item {
@@ -45,6 +115,9 @@
             border-left: 4px solid transparent;
             color: #666;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .city-item:hover {
@@ -56,6 +129,10 @@
             background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
             border-left-color: #e55a2b;
+        }
+
+        .city-icon {
+            font-size: 1.1rem;
         }
 
         .main-content {
@@ -75,6 +152,14 @@
             font-size: 1.8rem;
             color: #333;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-subtitle {
+            color: #ff6b35;
+            font-weight: normal;
         }
 
         .cinema-filters {
@@ -91,6 +176,9 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .filter-btn:hover {
@@ -127,12 +215,25 @@
             background: #f8f9fa;
             padding: 20px;
             border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .cinema-title {
             font-size: 1.2rem;
             font-weight: 600;
             color: #333;
+            flex: 1;
+        }
+
+        .cinema-capacity {
+            background: #ff6b35;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
 
         .cinema-content {
@@ -183,10 +284,22 @@
             line-height: 1.4;
         }
 
+        .movie-duration {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
         .seances-label {
             font-weight: 600;
             color: #666;
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .seances-grid {
@@ -196,20 +309,34 @@
         }
 
         .seance-btn {
-            padding: 8px 15px;
+            padding: 12px 15px;
             background: #f8f9fa;
             border: 1px solid #ddd;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             text-align: center;
             transition: all 0.3s ease;
             font-size: 0.9rem;
+            font-weight: 500;
         }
 
         .seance-btn:hover {
             background: #ff6b35;
             color: white;
             border-color: #ff6b35;
+            transform: translateY(-2px);
+        }
+
+        .seance-time {
+            display: block;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .seance-price {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.8;
         }
 
         .modal {
@@ -258,26 +385,47 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: #666;
+            padding: 5px;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #f8f9fa;
         }
 
         .projection-info {
             background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 10px;
             margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
         }
 
         .projection-info p {
             margin-bottom: 5px;
             color: #666;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .legend {
             display: flex;
             gap: 20px;
             justify-content: center;
-            margin: 15px 0;
+            margin: 20px 0;
             font-size: 0.9rem;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
         }
 
         .legend-item {
@@ -314,6 +462,9 @@
             gap: 8px;
             justify-content: center;
             margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
         }
 
         .seat {
@@ -351,37 +502,43 @@
 
         .booking-form {
             margin-top: 20px;
-            padding: 20px;
+            padding: 25px;
             border: 1px solid #eee;
-            border-radius: 10px;
+            border-radius: 15px;
             background: #f8f9fa;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .form-label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 600;
             color: #333;
         }
 
         .form-input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ff6b35;
         }
 
         .book-btn {
             background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 6px;
+            padding: 15px 30px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 1rem;
             font-weight: 600;
@@ -400,26 +557,33 @@
 
         .selected-info {
             background: #e7f3ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
 
         .success-message {
             background: #d4edda;
             color: #155724;
-            padding: 10px;
-            border-radius: 6px;
-            margin-top: 10px;
-        }
-
-        .loading {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
             text-align: center;
-            padding: 50px;
-            color: #666;
+            font-weight: 500;
         }
 
         @media (max-width: 768px) {
+            .top-header {
+                padding: 10px 15px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-buttons {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
             .container {
                 flex-direction: column;
             }
@@ -428,7 +592,11 @@
                 width: 100%;
                 display: flex;
                 overflow-x: auto;
-                padding: 10px;
+                padding: 0;
+            }
+            
+            .sidebar-header {
+                min-width: 150px;
             }
             
             .city-item {
@@ -459,27 +627,75 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Cinema Hub</h1>
+    <!-- Header moderne -->
+    <div class="top-header">
+        <div class="logo-section">
+            <div class="logo-icon">🎬</div>
+            <div class="logo-text">Cinema Hub</div>
+        </div>
+        <div class="nav-buttons">
+            <a href="#" class="nav-btn active">
+                🏠 Accueil
+            </a>
+            <a href="#" class="nav-btn">
+                ⚙️ Administration
+            </a>
+            <a href="#" class="nav-btn">
+                👤 admin
+            </a>
+            <a href="#" class="nav-btn logout">
+                📋 Déconnexion
+            </a>
+        </div>
     </div>
 
     <div class="container">
         <!-- Sidebar avec les villes -->
         <div class="sidebar">
-            <div class="city-item active" onclick="selectCity('casablanca')">Casablanca</div>
-            <div class="city-item" onclick="selectCity('rabat')">Rabat</div>
-            <div class="city-item" onclick="selectCity('marrakech')">Marrakech</div>
-            <div class="city-item" onclick="selectCity('tanger')">Tanger</div>
+            <div class="sidebar-header">
+                🏙️ Villes
+            </div>
+            <div class="city-item active" onclick="selectCity('lille')">
+                <span class="city-icon">📍</span>
+                Lille
+            </div>
+            <div class="city-item" onclick="selectCity('metz')">
+                <span class="city-icon">📍</span>
+                Metz
+            </div>
+            <div class="city-item" onclick="selectCity('paris')">
+                <span class="city-icon">📍</span>
+                Paris
+            </div>
+            <div class="city-item" onclick="selectCity('lyon')">
+                <span class="city-icon">📍</span>
+                Lyon
+            </div>
+            <div class="city-item" onclick="selectCity('toulouse')">
+                <span class="city-icon">📍</span>
+                Toulouse
+            </div>
         </div>
 
         <!-- Contenu principal -->
         <div class="main-content">
             <div class="content-header">
-                <h2 class="content-title">Liste des Cinémas</h2>
+                <h2 class="content-title">
+                    🎭 Liste des Cinémas - <span class="content-subtitle">Lille</span>
+                </h2>
                 <div class="cinema-filters">
-                    <button class="filter-btn active" onclick="selectCinema('ugc')">UGC</button>
-                    <button class="filter-btn" onclick="selectCinema('gaumont')">Gaumont</button>
-                    <button class="filter-btn" onclick="selectCinema('mega-rama')">Mega Rama</button>
+                    <button class="filter-btn active" onclick="selectCinema('gaumont')">
+                        🏢 Gaumont Parnasse
+                    </button>
+                    <button class="filter-btn" onclick="selectCinema('ugc')">
+                        🎪 UGC Lyon Confluence
+                    </button>
+                    <button class="filter-btn" onclick="selectCinema('pathe')">
+                        🎨 Pathé Marseille
+                    </button>
+                    <button class="filter-btn" onclick="selectCinema('cinemamix')">
+                        🎬 CinemaMix
+                    </button>
                 </div>
             </div>
 
@@ -487,7 +703,49 @@
             <div class="cinemas-grid">
                 <div class="cinema-card">
                     <div class="cinema-header">
-                        <h3 class="cinema-title">Salle 1 - Forrest Gump</h3>
+                        <h3 class="cinema-title">🎪 Salle 1</h3>
+                        <div class="cinema-capacity">(6 places)</div>
+                    </div>
+                    <div class="cinema-content">
+                        <div class="movie-section">
+                            <div class="movie-header">
+                                <div class="movie-poster">
+                                    Film d'Action
+                                </div>
+                                <div class="movie-info">
+                                    <h4 class="movie-title">Film d'Action</h4>
+                                    <p class="movie-description">Un film excitant et rempli d'actions</p>
+                                    <div class="movie-duration">
+                                        <span>⏱️</span>
+                                        <span>120 min</span>
+                                    </div>
+                                    <div class="seances-label">
+                                        🎬 <span>Séances disponibles</span>
+                                    </div>
+                                    <div class="seances-grid">
+                                        <button class="seance-btn" onclick="openReservation('Film d\'Action', '14:30', 12.5)">
+                                            <span class="seance-time">14:30</span>
+                                            <span class="seance-price">12.5€</span>
+                                        </button>
+                                        <button class="seance-btn" onclick="openReservation('Film d\'Action', '18:00', 12.5)">
+                                            <span class="seance-time">18:00</span>
+                                            <span class="seance-price">12.5€</span>
+                                        </button>
+                                        <button class="seance-btn" onclick="openReservation('Film d\'Action', '17:00', 12.5)">
+                                            <span class="seance-time">17:00</span>
+                                            <span class="seance-price">12.5€</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cinema-card">
+                    <div class="cinema-header">
+                        <h3 class="cinema-title">🎪 Salle 2</h3>
+                        <div class="cinema-capacity">(8 places)</div>
                     </div>
                     <div class="cinema-content">
                         <div class="movie-section">
@@ -498,12 +756,26 @@
                                 <div class="movie-info">
                                     <h4 class="movie-title">Forrest Gump</h4>
                                     <p class="movie-description">L'histoire d'un homme simple au grand cœur qui traverse l'histoire américaine</p>
-                                    <div class="seances-label">Séances</div>
+                                    <div class="movie-duration">
+                                        <span>⏱️</span>
+                                        <span>142 min</span>
+                                    </div>
+                                    <div class="seances-label">
+                                        🎬 <span>Séances disponibles</span>
+                                    </div>
                                     <div class="seances-grid">
-                                        <button class="seance-btn" onclick="openReservation('Forrest Gump', '14:00', 10)">14:00 (Prix 10€)</button>
-                                        <button class="seance-btn" onclick="openReservation('Forrest Gump', '17:00', 10)">17:00 (Prix 10€)</button>
-                                        <button class="seance-btn" onclick="openReservation('Forrest Gump', '20:00', 10)">20:00 (Prix 10€)</button>
-                                        <button class="seance-btn" onclick="openReservation('Forrest Gump', '23:00', 10)">23:00 (Prix 10€)</button>
+                                        <button class="seance-btn" onclick="openReservation('Forrest Gump', '14:00', 10)">
+                                            <span class="seance-time">14:00</span>
+                                            <span class="seance-price">10€</span>
+                                        </button>
+                                        <button class="seance-btn" onclick="openReservation('Forrest Gump', '17:00', 10)">
+                                            <span class="seance-time">17:00</span>
+                                            <span class="seance-price">10€</span>
+                                        </button>
+                                        <button class="seance-btn" onclick="openReservation('Forrest Gump', '20:00', 10)">
+                                            <span class="seance-time">20:00</span>
+                                            <span class="seance-price">10€</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -513,7 +785,8 @@
 
                 <div class="cinema-card">
                     <div class="cinema-header">
-                        <h3 class="cinema-title">Salle 2 - 12 hommes en colère</h3>
+                        <h3 class="cinema-title">🎪 Salle 3</h3>
+                        <div class="cinema-capacity">(12 places)</div>
                     </div>
                     <div class="cinema-content">
                         <div class="movie-section">
@@ -524,12 +797,26 @@
                                 <div class="movie-info">
                                     <h4 class="movie-title">12 hommes en colère</h4>
                                     <p class="movie-description">Un jury délibère sur le sort d'un jeune homme accusé de meurtre</p>
-                                    <div class="seances-label">Séances</div>
+                                    <div class="movie-duration">
+                                        <span>⏱️</span>
+                                        <span>96 min</span>
+                                    </div>
+                                    <div class="seances-label">
+                                        🎬 <span>Séances disponibles</span>
+                                    </div>
                                     <div class="seances-grid">
-                                        <button class="seance-btn" onclick="openReservation('12 hommes en colère', '14:00', 10)">14:00 (Prix 10€)</button>
-                                        <button class="seance-btn" onclick="openReservation('12 hommes en colère', '17:00', 10)">17:00 (Prix 10€)</button>
-                                        <button class="seance-btn" onclick="openReservation('12 hommes en colère', '20:00', 10)">20:00 (Prix 10€)</button>
-                                        <button class="seance-btn" onclick="openReservation('12 hommes en colère', '23:00', 10)">23:00 (Prix 10€)</button>
+                                        <button class="seance-btn" onclick="openReservation('12 hommes en colère', '15:30', 10)">
+                                            <span class="seance-time">15:30</span>
+                                            <span class="seance-price">10€</span>
+                                        </button>
+                                        <button class="seance-btn" onclick="openReservation('12 hommes en colère', '19:15', 10)">
+                                            <span class="seance-time">19:15</span>
+                                            <span class="seance-price">10€</span>
+                                        </button>
+                                        <button class="seance-btn" onclick="openReservation('12 hommes en colère', '21:45', 10)">
+                                            <span class="seance-time">21:45</span>
+                                            <span class="seance-price">10€</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -539,7 +826,8 @@
 
                 <div class="cinema-card">
                     <div class="cinema-header">
-                        <h3 class="cinema-title">Salle 3 - Le Parrain</h3>
+                        <h3 class="cinema-title">🎪 Salle 4</h3>
+                        <div class="cinema-capacity">(15 places)</div>
                     </div>
                     <div class="cinema-content">
                         <div class="movie-section">
@@ -550,37 +838,22 @@
                                 <div class="movie-info">
                                     <h4 class="movie-title">Le Parrain</h4>
                                     <p class="movie-description">L'épopée d'une famille de la mafia américaine</p>
-                                    <div class="seances-label">Séances</div>
-                                    <div class="seances-grid">
-                                        <button class="seance-btn" onclick="openReservation('Le Parrain', '14:00', 12)">14:00 (Prix 12€)</button>
-                                        <button class="seance-btn" onclick="openReservation('Le Parrain', '17:00', 12)">17:00 (Prix 12€)</button>
-                                        <button class="seance-btn" onclick="openReservation('Le Parrain', '20:00', 12)">20:00 (Prix 12€)</button>
-                                        <button class="seance-btn" onclick="openReservation('Le Parrain', '23:00', 12)">23:00 (Prix 12€)</button>
+                                    <div class="movie-duration">
+                                        <span>⏱️</span>
+                                        <span>175 min</span>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cinema-card">
-                    <div class="cinema-header">
-                        <h3 class="cinema-title">Salle 4 - Le Seigneur des anneaux</h3>
-                    </div>
-                    <div class="cinema-content">
-                        <div class="movie-section">
-                            <div class="movie-header">
-                                <div class="movie-poster">
-                                    LOTR
-                                </div>
-                                <div class="movie-info">
-                                    <h4 class="movie-title">Le Seigneur des anneaux</h4>
-                                    <p class="movie-description">L'aventure épique de Frodon et de la Communauté de l'Anneau</p>
-                                    <div class="seances-label">Séances</div>
+                                    <div class="seances-label">
+                                        🎬 <span>Séances disponibles</span>
+                                    </div>
                                     <div class="seances-grid">
-                                        <button class="seance-btn" onclick="openReservation('Le Seigneur des anneaux', '14:00', 15)">14:00 (Prix 15€)</button>
-                                        <button class="seance-btn" onclick="openReservation('Le Seigneur des anneaux', '17:00', 15)">17:00 (Prix 15€)</button>
-                                        <button class="seance-btn" onclick="openReservation('Le Seigneur des anneaux', '20:00', 15)">20:00 (Prix 15€)</button>
+                                        <button class="seance-btn" onclick="openReservation('Le Parrain', '16:00', 12)">
+                                            <span class="seance-time">16:00</span>
+                                            <span class="seance-price">12€</span>
+                                        </button>
+                                        <button class="seance-btn" onclick="openReservation('Le Parrain', '19:30', 12)">
+                                            <span class="seance-time">19:30</span>
+                                            <span class="seance-price">12€</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -600,8 +873,10 @@
             </div>
 
             <div class="projection-info">
-                <p><strong>Séance:</strong> <span id="seanceTime"></span></p>
-                <p><strong>Prix par place:</strong> <span id="seatPrice"></span>€</p>
+                <p><strong>🎬 Film:</strong> <span id="movieName"></span></p>
+                <p><strong>⏰ Séance:</strong> <span id="seanceTime"></span></p>
+                <p><strong>💰 Prix par place:</strong> <span id="seatPrice"></span>€</p>
+                <p><strong>🎪 Salle:</strong> Salle 1</p>
             </div>
             
             <div class="legend">
@@ -624,29 +899,29 @@
             </div>
 
             <div class="booking-form" id="bookingForm" style="display: none;">
-                <h4>Informations de réservation</h4>
+                <h4>📝 Informations de réservation</h4>
                 
                 <div class="selected-info">
-                    <p><strong>Places sélectionnées:</strong> <span id="selectedSeats"></span></p>
-                    <p><strong>Prix total:</strong> <span id="totalPrice"></span>€</p>
+                    <p><strong>🎫 Places sélectionnées:</strong> <span id="selectedSeats"></span></p>
+                    <p><strong>💰 Prix total:</strong> <span id="totalPrice"></span>€</p>
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">Nom du client *</label>
+                    <label class="form-label">👤 Nom du client *</label>
                     <input type="text" class="form-input" id="clientName" placeholder="Entrez votre nom">
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">Code de paiement *</label>
+                    <label class="form-label">💳 Code de paiement *</label>
                     <input type="text" class="form-input" id="paymentCode" placeholder="Code de paiement">
                 </div>
 
                 <button class="book-btn" onclick="confirmBooking()">
-                    Confirmer la réservation
+                    ✅ Confirmer la réservation
                 </button>
                 
                 <div class="success-message" id="successMessage" style="display: none;">
-                    Réservation confirmée avec succès !
+                    🎉 Réservation confirmée avec succès !
                 </div>
             </div>
         </div>
@@ -656,6 +931,7 @@
         let selectedSeats = [];
         let currentPrice = 0;
         let seatData = [];
+        let currentMovie = '';
 
         function selectCity(city) {
             // Retirer la classe active de tous les éléments
@@ -666,7 +942,11 @@
             // Ajouter la classe active à l'élément cliqué
             event.target.classList.add('active');
             
-            // Ici vous pourriez charger les cinémas de la ville sélectionnée
+            // Mettre à jour le titre
+            const subtitle = document.querySelector('.content-subtitle');
+            subtitle.textContent = city.charAt(0).toUpperCase() + city.slice(1);
+            
+            // Simuler le chargement des cinémas de la ville sélectionnée
             console.log('Ville sélectionnée:', city);
         }
 
@@ -684,7 +964,9 @@
         }
 
         function openReservation(movieTitle, time, price) {
+            currentMovie = movieTitle;
             document.getElementById('modalTitle').textContent = `Réservation - ${movieTitle}`;
+            document.getElementById('movieName').textContent = movieTitle;
             document.getElementById('seanceTime').textContent = time;
             document.getElementById('seatPrice').textContent = price;
             
@@ -707,7 +989,7 @@
                 seat.textContent = i;
                 
                 // Simuler quelques places occupées
-                const isOccupied = Math.random() < 0.3; // 30% de chances d'être occupé
+                const isOccupied = Math.random() < 0.25; // 25% de chances d'être occupé
                 
                 if (isOccupied) {
                     seat.classList.add('occupied');
@@ -754,19 +1036,24 @@
             
             if (selectedSeats.length > 0) {
                 bookingForm.style.display = 'block';
-                document.getElementById('selectedSeats').textContent = selectedSeats.join(', ');
-                document.getElementById('totalPrice').textContent = selectedSeats.length * currentPrice;
+                document.getElementById('selectedSeats').textContent = selectedSeats.sort((a, b) => a - b).join(', ');
+                document.getElementById('totalPrice').textContent = (selectedSeats.length * currentPrice).toFixed(2);
             } else {
                 bookingForm.style.display = 'none';
             }
         }
 
         function confirmBooking() {
-            const clientName = document.getElementById('clientName').value;
-            const paymentCode = document.getElementById('paymentCode').value;
+            const clientName = document.getElementById('clientName').value.trim();
+            const paymentCode = document.getElementById('paymentCode').value.trim();
             
             if (!clientName || !paymentCode) {
-                alert('Veuillez remplir tous les champs obligatoires');
+                alert('⚠️ Veuillez remplir tous les champs obligatoires');
+                return;
+            }
+            
+            if (selectedSeats.length === 0) {
+                alert('⚠️ Veuillez sélectionner au moins une place');
                 return;
             }
             
@@ -779,7 +1066,11 @@
                 const seatIndex = seatData.findIndex(s => s.number === seatNumber);
                 if (seatIndex !== -1) {
                     seatData[seatIndex].occupied = true;
-                    const seatElement = document.querySelector(`.seat:nth-child(${seatNumber})`);
+                    seatData[seatIndex].selected = false;
+                    
+                    // Trouver l'élément de siège et le mettre à jour
+                    const seatElements = document.querySelectorAll('.seat');
+                    const seatElement = Array.from(seatElements).find(el => el.textContent == seatNumber);
                     if (seatElement) {
                         seatElement.classList.remove('selected');
                         seatElement.classList.add('occupied');
@@ -788,13 +1079,21 @@
                 }
             });
             
+            // Réinitialiser la sélection
             selectedSeats = [];
             updateBookingForm();
             
-            // Fermer le modal après 2 secondes
+            // Log de la réservation
+            console.log(`Réservation confirmée:
+                Film: ${currentMovie}
+                Client: ${clientName}
+                Places: ${selectedSeats.join(', ')}
+                Total: ${(selectedSeats.length * currentPrice).toFixed(2)}€`);
+            
+            // Fermer le modal après 3 secondes
             setTimeout(() => {
                 closeReservation();
-            }, 2000);
+            }, 3000);
         }
 
         function closeReservation() {
@@ -802,6 +1101,8 @@
             document.getElementById('clientName').value = '';
             document.getElementById('paymentCode').value = '';
             document.getElementById('successMessage').style.display = 'none';
+            selectedSeats = [];
+            updateBookingForm();
         }
 
         // Fermer le modal en cliquant à l'extérieur
@@ -811,6 +1112,30 @@
                 closeReservation();
             }
         }
+
+        // Gestion des touches du clavier
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeReservation();
+            }
+        });
+
+        // Animation d'entrée pour les cartes
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.cinema-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.5s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 150);
+            });
+        });
     </script>
 </body>
 </html>
